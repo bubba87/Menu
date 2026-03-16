@@ -640,36 +640,79 @@ const recipes = [
  steps:['Griller et trancher poulet.','Julienne de légumes.','Mélanger sauce.','Assembler, garnir cacahuètes.'],
  shop:['Blancs poulet (400g)','Chou rouge, carotte, concombre','Cacahuètes, menthe, coriandre, citron vert'],tip:'Croquant + frais + épicé = parfait.'},
 // === SMOOTHIES (10) ===
-{id:'smo1',name:'Green Power',type:'smoothie',moment:['matin'],time:3,cuisine:'international',prot:12,glu:6,lip:20,cal:280,
- ing:['2 poignées épinards','1 avocat','400ml lait amande','2 c. soupe beurre cacahuète'],steps:['Mixer 30 sec.'],
- shop:['Épinards, avocat, lait amande, beurre cacahuète'],tip:'Ultra-rassasiant.'},
-{id:'smo2',name:'Berry Protein',type:'smoothie',moment:['matin'],time:3,cuisine:'international',prot:18,glu:12,lip:8,cal:220,
- ing:['200g myrtilles','300g yaourt grec','Graines chia + lin'],steps:['Mixer et boire.'],
- shop:['Myrtilles, yaourt grec, graines chia, lin'],tip:'Antioxydants + protéines.'},
-{id:'smo3',name:'Coco-Matcha Énergie',type:'smoothie',moment:['matin'],time:3,cuisine:'asiatique',prot:8,glu:5,lip:18,cal:240,
- ing:['400ml lait coco','2 c. café matcha','1 avocat'],steps:['Mixer mousseux.'],
- shop:['Lait coco, matcha, avocat'],tip:'Énergie longue durée sans crash.'},
-{id:'smo4',name:'Concombre-Menthe Détox',type:'smoothie',moment:['matin'],time:3,cuisine:'international',prot:3,glu:4,lip:2,cal:60,
- ing:['1 concombre','Menthe fraîche, citron vert','400ml eau coco, chia'],steps:['Mixer frais.'],
- shop:['Concombre, menthe, citron vert, eau coco, chia'],tip:'Quasi 0 glucides. Parfait post-sport.'},
-{id:'smo5',name:'Chocolat-Amande Gourmand',type:'smoothie',moment:['matin'],time:3,cuisine:'international',prot:10,glu:6,lip:16,cal:230,
- ing:['400ml lait amande','2 c. soupe cacao pur','2 c. soupe beurre amande','Lin, cannelle'],steps:['Mixer 30 sec.'],
- shop:['Lait amande, cacao pur, beurre amande, lin'],tip:'Goût dessert sans sucre.'},
-{id:'smo6',name:'Gingembre-Curcuma Anti-Inflammatoire',type:'smoothie',moment:['matin'],time:4,cuisine:'asiatique',prot:4,glu:6,lip:14,cal:200,
- ing:['400ml lait coco','Gingembre, curcuma','1 avocat, citron, poivre noir'],steps:['Mixer le tout.'],
- shop:['Lait coco, gingembre, curcuma, avocat, citron'],tip:'Poivre noir ×20 absorption curcuma.'},
-{id:'smo7',name:'Fraise-Basilic Frais',type:'smoothie',moment:['matin'],time:3,cuisine:'international',prot:12,glu:10,lip:4,cal:180,
- ing:['200g fraises','8 feuilles basilic','200g yaourt grec','200ml eau'],steps:['Mixer.'],
- shop:['Fraises, basilic, yaourt grec'],tip:'Original et vitaminé.'},
-{id:'smo8',name:'Café Protéiné',type:'smoothie',moment:['matin'],time:3,cuisine:'international',prot:14,glu:4,lip:16,cal:240,
- ing:['2 expressos refroidis','200ml lait amande','2 c. soupe beurre cacahuète','Cacao, glaçons'],steps:['Mixer frappé.'],
- shop:['Café, lait amande, beurre cacahuète, cacao'],tip:'Remplace le petit-déj si pressé.'},
-{id:'smo9',name:'Épinard-Mangue Tropical',type:'smoothie',moment:['matin'],time:3,cuisine:'international',prot:8,glu:14,lip:4,cal:160,
- ing:['2 poignées épinards','100g mangue surgelée','200g yaourt grec','200ml eau'],steps:['Mixer.'],
- shop:['Épinards, mangue surgelée, yaourt grec'],tip:'La mangue masque le goût des épinards.'},
-{id:'smo10',name:'Açaï Bowl express',type:'smoothie',moment:['matin'],time:5,cuisine:'international',prot:10,glu:14,lip:12,cal:220,
- ing:['100g açaï surgelé','1 banane (petite)','200ml lait amande','Toppings : noix coco, amandes, chia'],steps:['Mixer épais.','Verser en bol, ajouter toppings.'],
- shop:['Açaï surgelé, banane, lait amande','Coco râpée, amandes, chia'],tip:'Texture épaisse obligatoire, pas liquide.'},
+{id:'smo1',name:'Green Power Complet',type:'smoothie',moment:['matin'],time:5,cuisine:'international',prot:22,glu:8,lip:24,cal:350,
+ ing:['2 poignées épinards frais','1 avocat mûr','400ml lait amande','2 c. soupe beurre cacahuète','1 c. soupe graines de chanvre','1 c. café spiruline','Glaçons'],
+ steps:['Verser lait amande + épinards, mixer 15 sec.','Ajouter avocat + beurre cacahuète + chanvre + spiruline.','Mixer 30 sec jusqu\'à onctueux.','Servir avec glaçons.'],
+ shop:['Épinards frais','Avocat','Lait amande (400ml)','Beurre cacahuète','Graines de chanvre','Spiruline'],tip:'La spiruline ajoute 8g de protéines. Ultra-rassasiant, remplace un repas.'},
+{id:'smo2',name:'Berry Protein Bowl',type:'smoothie',moment:['matin'],time:5,cuisine:'international',prot:26,glu:14,lip:12,cal:280,
+ ing:['150g myrtilles','100g framboises','300g yaourt grec entier','2 c. soupe graines chia','1 c. soupe graines lin moulues','30g amandes effilées','1 c. soupe miel (optionnel)'],
+ steps:['Mixer yaourt + baies + lin jusqu\'à lisse.','Verser en bol (épais).','Parsemer chia, amandes, quelques baies entières.','Laisser reposer 2 min (le chia épaissit).'],
+ shop:['Myrtilles (150g)','Framboises (100g)','Yaourt grec (300g)','Graines chia','Graines lin','Amandes effilées'],tip:'Version bowl à la cuillère. Antioxydants + protéines pour tenir toute la matinée.'},
+{id:'smo3',name:'Coco-Matcha Énergie',type:'smoothie',moment:['matin'],time:5,cuisine:'asiatique',prot:10,glu:6,lip:22,cal:280,
+ ing:['400ml lait coco','2 c. café matcha de qualité (cérémonial)','1 avocat','1 c. soupe huile TCM ou coco','1 c. café vanille','Glaçons'],
+ steps:['Tamiser le matcha dans un peu de lait coco tiède, fouetter.','Ajouter reste lait coco + avocat + huile + vanille.','Mixer 30 sec.','Servir avec glaçons.'],
+ shop:['Lait coco (400ml)','Matcha cérémonial','Avocat','Huile TCM ou coco'],tip:'Le matcha donne une énergie de 4-6h sans crash. L\'huile TCM booste la concentration.'},
+{id:'smo4',name:'Concombre-Menthe Détox Enrichi',type:'smoothie',moment:['matin'],time:5,cuisine:'international',prot:8,glu:6,lip:6,cal:120,
+ ing:['1 concombre entier','Grande poignée menthe fraîche','2 citrons verts (jus)','400ml eau de coco','2 c. soupe graines chia','1 c. café gingembre frais râpé','Glaçons pilés'],
+ steps:['Mixer concombre + menthe + jus citron + eau coco + gingembre.','Ajouter chia, remuer.','Laisser 2 min (chia gonfle).','Servir sur glace pilée.'],
+ shop:['Concombre','Menthe fraîche','Citrons verts (×2)','Eau de coco','Graines chia','Gingembre frais'],tip:'Quasi 0 glucides nets (fibres du chia). Parfait post-sport ou matin d\'été.'},
+{id:'smo5',name:'Chocolat-Amande Gourmand',type:'smoothie',moment:['matin'],time:5,cuisine:'international',prot:16,glu:8,lip:22,cal:300,
+ ing:['400ml lait amande','2 c. soupe cacao cru en poudre','2 c. soupe beurre amande','1 c. soupe graines lin moulues','1/2 c. café cannelle de Ceylan','Pincée de sel rose','1 datte Medjool (optionnel)','Glaçons'],
+ steps:['Mixer lait + cacao + beurre amande + lin + cannelle + sel.','Ajouter datte si souhaité.','Mixer 30 sec.','Servir frappé.'],
+ shop:['Lait amande','Cacao cru','Beurre amande','Graines lin','Cannelle Ceylan','Sel rose'],tip:'Le cacao cru = riche en magnésium et théobromine (énergie douce). Goût dessert sans sucre ajouté.'},
+{id:'smo6',name:'Golden Milk Smoothie Anti-Inflammatoire',type:'smoothie',moment:['matin'],time:5,cuisine:'asiatique',prot:8,glu:8,lip:18,cal:240,
+ ing:['400ml lait coco','1 c. soupe curcuma frais râpé (ou 1 c. café poudre)','1 cm gingembre frais','1 avocat','Jus d\'1 citron','Poivre noir fraîchement moulu','1 c. café miel cru (optionnel)'],
+ steps:['Mixer lait coco + curcuma + gingembre + avocat + citron.','Ajouter une bonne pincée de poivre noir.','Mixer 30 sec.','Servir à température ou avec glaçons.'],
+ shop:['Lait coco','Curcuma frais ou poudre','Gingembre frais','Avocat','Citron','Poivre noir'],tip:'Le poivre noir multiplie par 20 l\'absorption du curcuma. Anti-inflammatoire puissant.'},
+{id:'smo7',name:'Fraise-Basilic & Kéfir',type:'smoothie',moment:['matin'],time:5,cuisine:'international',prot:14,glu:12,lip:6,cal:180,
+ ing:['200g fraises fraîches','10 feuilles basilic frais','250ml kéfir (ou yaourt grec liquide)','1 c. soupe graines tournesol','1 c. café vanille','100ml eau'],
+ steps:['Mixer kéfir + fraises + basilic + vanille + eau.','Ajouter graines tournesol, mixer brièvement (garder texture).','Servir frais.'],
+ shop:['Fraises (200g)','Basilic frais','Kéfir (250ml)','Graines tournesol'],tip:'Le kéfir apporte des probiotiques. Original et vitaminé, combo basilic-fraise surprenant.'},
+{id:'smo8',name:'Café Protéiné Frappé',type:'smoothie',moment:['matin'],time:5,cuisine:'international',prot:18,glu:5,lip:20,cal:290,
+ ing:['2 expressos refroidis (ou 200ml café fort froid)','200ml lait amande','2 c. soupe beurre cacahuète','1 c. soupe cacao cru','2 c. soupe collagène en poudre (optionnel)','1/2 c. café cannelle','Glaçons abondants'],
+ steps:['Verser café froid + lait + beurre cacahuète + cacao + collagène + cannelle.','Ajouter glaçons.','Mixer 30 sec jusqu\'à frappé mousseux.','Servir immédiatement.'],
+ shop:['Café (espresso ou fort)','Lait amande','Beurre cacahuète','Cacao cru','Collagène poudre (optionnel)'],tip:'Remplace le petit-déj si pressé. Le collagène renforce peau, cheveux et articulations.'},
+{id:'smo9',name:'Tropical Vert Mangue-Épinard',type:'smoothie',moment:['matin'],time:5,cuisine:'international',prot:12,glu:16,lip:8,cal:200,
+ ing:['2 poignées épinards','100g mangue surgelée','200g yaourt grec','200ml eau de coco','1 c. soupe graines chia','Jus d\'1/2 citron vert','1 cm gingembre frais'],
+ steps:['Mixer épinards + eau de coco d\'abord (lisse).','Ajouter mangue + yaourt + gingembre + citron + chia.','Mixer 30 sec.','Servir.'],
+ shop:['Épinards','Mangue surgelée (100g)','Yaourt grec','Eau de coco','Graines chia','Citron vert','Gingembre'],tip:'La mangue masque totalement le goût des épinards. Le gingembre aide la digestion.'},
+{id:'smo10',name:'Açaï Bowl Complet',type:'smoothie',moment:['matin'],time:7,cuisine:'international',prot:14,glu:16,lip:16,cal:280,
+ ing:['100g açaï surgelé (packs purs, sans sucre)','1/2 banane congelée','100ml lait amande','Toppings : noix coco râpée, amandes, chia, myrtilles fraîches, beurre cacahuète'],
+ steps:['Mixer açaï + banane + lait amande (très épais, comme un sorbet).','Verser en bol.','Disposer toppings en rangées : coco, amandes, chia, myrtilles, filet beurre cacahuète.'],
+ shop:['Açaï surgelé pur (100g)','Banane','Lait amande','Noix coco râpée, amandes, chia, myrtilles, beurre cacahuète'],tip:'Texture épaisse obligatoire — manger à la cuillère. Acheter l\'açaï pur, pas les mélanges sucrés.'},
+// === NOUVEAUX SMOOTHIES RICHES (8) ===
+{id:'smo11',name:'PB&J Protéiné (Cacahuète-Framboise)',type:'smoothie',moment:['matin'],time:5,cuisine:'international',prot:22,glu:12,lip:20,cal:320,
+ ing:['200g framboises (fraîches ou surgelées)','3 c. soupe beurre cacahuète','300g yaourt grec','200ml lait amande','1 c. soupe graines de chanvre','Glaçons'],
+ steps:['Mixer yaourt + framboises + lait amande.','Ajouter beurre cacahuète + chanvre.','Mixer 30 sec.','Servir avec quelques framboises entières.'],
+ shop:['Framboises (200g)','Beurre cacahuète','Yaourt grec','Lait amande','Graines chanvre'],tip:'Goût classique PB&J mais hyper-protéiné. Le chanvre apporte oméga-3 végétaux.'},
+{id:'smo12',name:'Lassi Mangue-Cardamome',type:'smoothie',moment:['matin'],time:5,cuisine:'asiatique',prot:14,glu:14,lip:8,cal:200,
+ ing:['150g mangue surgelée','250g yaourt grec','200ml lait amande','4 capsules cardamome (graines écrasées)','1 c. café eau de rose (optionnel)','Pistaches concassées'],
+ steps:['Écraser graines de cardamome.','Mixer yaourt + mangue + lait + cardamome + eau de rose.','Servir avec pistaches.'],
+ shop:['Mangue surgelée','Yaourt grec','Cardamome en capsules','Eau de rose','Pistaches'],tip:'Le lassi est un classique indien. La cardamome aide la digestion et le goût est unique.'},
+{id:'smo13',name:'Betterave-Gingembre Performance',type:'smoothie',moment:['matin'],time:5,cuisine:'international',prot:12,glu:14,lip:8,cal:190,
+ ing:['1 petite betterave crue pelée','200g yaourt grec','1 pomme verte (petite)','2 cm gingembre frais','200ml eau de coco','Jus d\'1/2 citron'],
+ steps:['Couper betterave en morceaux.','Mixer betterave + pomme + gingembre + eau de coco.','Ajouter yaourt + citron.','Mixer jusqu\'à lisse.'],
+ shop:['Betterave crue','Yaourt grec','Pomme verte','Gingembre','Eau de coco','Citron'],tip:'La betterave booste les nitrates = meilleure performance sportive. Boire 1h avant l\'entraînement.'},
+{id:'smo14',name:'Avocat-Cacao-Banane Crémeux',type:'smoothie',moment:['matin'],time:5,cuisine:'international',prot:12,glu:14,lip:24,cal:340,
+ ing:['1 avocat mûr','1/2 banane congelée','2 c. soupe cacao cru','300ml lait coco','1 c. soupe beurre noix de cajou','Pincée de fleur de sel'],
+ steps:['Mixer avocat + banane + cacao + lait coco + beurre cajou.','Ajouter fleur de sel.','Mixer 30 sec (texture mousse au chocolat).','Servir immédiatement.'],
+ shop:['Avocat','Banane','Cacao cru','Lait coco','Beurre noix cajou','Fleur de sel'],tip:'Texture incroyable de mousse. Le sel rehausse le chocolat. Très rassasiant.'},
+{id:'smo15',name:'Thaï Coco-Citronnelle',type:'smoothie',moment:['matin'],time:7,cuisine:'asiatique',prot:8,glu:8,lip:20,cal:260,
+ ing:['400ml lait coco','1 tige citronnelle (partie tendre hachée)','2 feuilles combava (ou zeste citron vert)','1 avocat','1 cm gingembre frais','1 c. soupe huile coco','Glaçons'],
+ steps:['Infuser citronnelle + combava dans lait coco tiède 5 min.','Filtrer.','Mixer avec avocat + gingembre + huile coco.','Servir sur glaçons.'],
+ shop:['Lait coco','Citronnelle','Feuilles combava ou citron vert','Avocat','Gingembre','Huile coco'],tip:'Un smoothie aux saveurs thaïes uniques. La citronnelle est anti-stress.'},
+{id:'smo16',name:'Grenade-Greens Antioxydant',type:'smoothie',moment:['matin'],time:5,cuisine:'international',prot:10,glu:12,lip:6,cal:160,
+ ing:['200ml jus de grenade pur','2 poignées épinards','100g myrtilles','150g yaourt grec','1 c. soupe graines lin','Glaçons'],
+ steps:['Mixer jus grenade + épinards d\'abord.','Ajouter myrtilles + yaourt + lin.','Mixer 30 sec.'],
+ shop:['Jus de grenade pur (200ml)','Épinards','Myrtilles','Yaourt grec','Graines lin'],tip:'Score ORAC (antioxydants) exceptionnel. Les grenade + myrtilles sont le duo anti-âge par excellence.'},
+{id:'smo17',name:'Tahini-Datte Oriental',type:'smoothie',moment:['matin'],time:5,cuisine:'maghrébin',prot:12,glu:16,lip:18,cal:290,
+ ing:['2 c. soupe tahini (crème de sésame)','2 dattes Medjool dénoyautées','300ml lait amande','1 c. café cannelle','1 c. café vanille','Pincée de sel','Glaçons'],
+ steps:['Mixer tahini + dattes + lait + cannelle + vanille + sel.','Ajouter glaçons.','Mixer 30 sec.'],
+ shop:['Tahini','Dattes Medjool (×2)','Lait amande','Cannelle'],tip:'Le tahini est riche en calcium et fer. Goût de halvah en version liquide.'},
+{id:'smo18',name:'Collagène Vanille-Noix de Coco',type:'smoothie',moment:['matin'],time:5,cuisine:'international',prot:20,glu:4,lip:20,cal:290,
+ ing:['400ml lait coco','2 c. soupe collagène en poudre','1 c. soupe beurre coco','1 c. café vanille bourbon','2 c. soupe noix coco râpée','Glaçons'],
+ steps:['Mixer lait coco + collagène + beurre coco + vanille.','Ajouter glaçons, mixer mousseux.','Parsemer coco râpée.'],
+ shop:['Lait coco','Collagène poudre','Beurre coco','Vanille bourbon','Noix coco râpée'],tip:'Le collagène renforce peau, ongles, cheveux et articulations. Goût de bounty healthy.'},
 // === EXTRA PETIT-DEJ (3) ===
 {id:'pdej13',name:'Galette de courgette & œuf',type:'petit-dej',moment:['matin'],time:15,cuisine:'européen',prot:22,glu:6,lip:18,cal:280,
  ing:['2 courgettes râpées','4 œufs','50g parmesan','Sel, poivre, muscade'],
@@ -810,7 +853,9 @@ function recipeCardHTML(r, context) {
     const borderClass = r.moment.includes('midi') ? 'midi' : (r.moment.includes('soir') ? 'soir' : '');
     const timeLabel = r.moment.includes('matin') ? 'matin' : (r.moment.includes('midi') ? 'midi' : 'soir');
     let html = `<div class="meal-card ${borderClass}">`;
-    if (context === 'menu') {
+    if (context === 'smoothie') {
+        html += `<div class="meal-time" style="color:var(--purple)">Smoothie du matin</div>`;
+    } else if (context === 'menu') {
         html += `<div class="meal-time ${timeLabel}">${timeLabel === 'matin' ? 'Petit-déjeuner' : (timeLabel === 'midi' ? 'Déjeuner' : 'Souper')}</div>`;
     }
     html += `<div class="meal-title">${r.name}</div>`;
@@ -935,19 +980,21 @@ function generateWeekMenu() {
     const container = document.getElementById('weekMenuDisplay');
     container.innerHTML = '';
 
+    const smoothies = recipes.filter(r => r.type === 'smoothie');
     const matins = recipes.filter(r => r.moment.includes('matin') && r.type !== 'smoothie');
     const midis = recipes.filter(r => r.moment.includes('midi'));
     const soirs = recipes.filter(r => r.moment.includes('soir'));
 
     const shuffle = arr => [...arr].sort(() => Math.random() - 0.5);
-    const sm = shuffle(matins), smi = shuffle(midis), ss = shuffle(soirs);
+    const ssm = shuffle(smoothies), sm = shuffle(matins), smi = shuffle(midis), ss = shuffle(soirs);
 
     days.forEach((day, i) => {
         const div = document.createElement('div');
         div.id = day;
         div.className = 'day-content' + (i === 0 ? ' active' : '');
-        const m = sm[i % sm.length], l = smi[i % smi.length], s = ss[i % ss.length];
-        div.innerHTML = recipeCardHTML({...m, moment:['matin']}, 'menu')
+        const smoo = ssm[i % ssm.length], m = sm[i % sm.length], l = smi[i % smi.length], s = ss[i % ss.length];
+        div.innerHTML = recipeCardHTML({...smoo, moment:['matin']}, 'smoothie')
+            + recipeCardHTML({...m, moment:['matin']}, 'menu')
             + recipeCardHTML({...l, moment:['midi']}, 'menu')
             + recipeCardHTML({...s, moment:['soir']}, 'menu');
         container.appendChild(div);
@@ -965,10 +1012,12 @@ function initBuilder() {
     slotsDiv.innerHTML = '';
     dayKeys.forEach(day => {
         let html = `<div class="builder-day"><h4>${dayNames[day]}</h4>`;
-        ['matin','midi','soir'].forEach(meal => {
+        ['smoothie','matin','midi','soir'].forEach(meal => {
+            const label = meal === 'smoothie' ? 'Smoothie' : meal === 'matin' ? 'Matin' : meal === 'midi' ? 'Midi' : 'Soir';
             html += `<div class="builder-slot" data-day="${day}" data-meal="${meal}"
-                ondrop="dropRecipe(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)">
-                <div class="slot-label">${meal === 'matin' ? 'Matin' : meal === 'midi' ? 'Midi' : 'Soir'}</div></div>`;
+                ondrop="dropRecipe(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)"
+                style="${meal === 'smoothie' ? 'border-color:#e9d5ff;' : ''}">
+                <div class="slot-label" style="${meal === 'smoothie' ? 'color:var(--purple);' : ''}">${label}</div></div>`;
         });
         html += '</div>';
         slotsDiv.innerHTML += html;
@@ -1023,11 +1072,13 @@ function placeRecipeInSlot(slot, name) {
 // SUGGEST WEEK (smart auto-fill)
 // ============================================================
 function suggestWeek() {
+    const smoothiePool = recipes.filter(r => r.type === 'smoothie' && !usedRecipeIds.has(r.id));
     const matins = recipes.filter(r => r.moment.includes('matin') && r.type !== 'smoothie' && !usedRecipeIds.has(r.id));
     const midis = recipes.filter(r => r.moment.includes('midi') && !usedRecipeIds.has(r.id));
     const soirs = recipes.filter(r => r.moment.includes('soir') && !usedRecipeIds.has(r.id));
 
     // Fallback if we run out
+    const smoothiesFb = smoothiePool.length >= 7 ? smoothiePool : recipes.filter(r => r.type === 'smoothie');
     const matinsFb = matins.length >= 7 ? matins : recipes.filter(r => r.moment.includes('matin') && r.type !== 'smoothie');
     const midisFb = midis.length >= 7 ? midis : recipes.filter(r => r.moment.includes('midi'));
     const soirsFb = soirs.length >= 7 ? soirs : recipes.filter(r => r.moment.includes('soir'));
@@ -1037,15 +1088,16 @@ function suggestWeek() {
         return shuffled.slice(0, n);
     };
 
+    const weekSmoothies = pick(smoothiesFb, 7);
     const weekMatins = pick(matinsFb, 7);
     const weekMidis = pick(midisFb, 7);
     const weekSoirs = pick(soirsFb, 7);
 
     dayKeys.forEach((day, i) => {
-        ['matin','midi','soir'].forEach((meal, j) => {
+        ['smoothie','matin','midi','soir'].forEach((meal, j) => {
             const slot = document.querySelector(`.builder-slot[data-day="${day}"][data-meal="${meal}"]`);
             if (!slot) return;
-            const r = [weekMatins, weekMidis, weekSoirs][j][i];
+            const r = [weekSmoothies, weekMatins, weekMidis, weekSoirs][j][i];
             if (r) {
                 placeRecipeInSlot(slot, r.name);
                 usedRecipeIds.add(r.id);
@@ -1093,12 +1145,12 @@ function exportPDF() {
     content += '@media print{.pagebreak{page-break-before:always}}</style></head><body>';
     content += '<h1>Mon Menu de la Semaine ' + (weekCount || '') + '</h1>';
     content += '<p style="color:#6c757d;font-size:12px">' + new Date().toLocaleDateString('fr-FR') + ' — ' + persons + ' personnes</p>';
-    content += '<table><tr><th>Jour</th><th>Matin</th><th>Midi</th><th>Soir</th></tr>';
+    content += '<table><tr><th>Jour</th><th>Smoothie</th><th>Matin</th><th>Midi</th><th>Soir</th></tr>';
 
     const selectedNames = [];
     for (const day of dayKeys) {
         content += '<tr><td><strong>' + dayNames[day] + '</strong></td>';
-        for (const meal of ['matin','midi','soir']) {
+        for (const meal of ['smoothie','matin','midi','soir']) {
             const slot = document.querySelector(`.builder-slot[data-day="${day}"][data-meal="${meal}"]`);
             const recipe = slot ? slot.querySelector('.slot-recipe') : null;
             const text = recipe ? recipe.textContent.replace('×','').trim() : '—';

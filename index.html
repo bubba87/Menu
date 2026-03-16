@@ -1924,6 +1924,87 @@ function exportPDF() {
         content += '</tr>';
     }
     content += '</table>';
+
+    // Collect global shopping list from selected recipes
+    const allItems = new Map(); // category -> Set of items
+    const libCards = document.querySelectorAll('.lib-card');
+    const recipeMap = {};
+    libCards.forEach(card => {
+        const name = card.dataset.name;
+        const cat = card.dataset.cat;
+        const items = [];
+        card.querySelectorAll('.shopping-list li').forEach(li => items.push(li.textContent.trim()));
+        recipeMap[name] = { cat, items };
+    });
+
+    const catLabels = {'petit-dej':'Petit-déjeuner','viande':'Viandes & Volailles','poisson':'Poissons & Fruits de mer','veggie':'Végétarien','soupe':'Soupes','salade':'Salades','smoothie':'Smoothies'};
+    const shopByCategory = {};
+    const selectedRecipes = [];
+
+    slots.forEach(slot => {
+        const recipe = slot.querySelector('.slot-recipe');
+        if (!recipe) return;
+        const name = recipe.textContent.replace('×','').trim();
+        selectedRecipes.push(name);
+        if (recipeMap[name]) {
+            const cat = recipeMap[name].cat;
+            if (!shopByCategory[cat]) shopByCategory[cat] = new Set();
+            recipeMap[name].items.forEach(item => shopByCategory[cat].add(item));
+        }
+    });
+
+    if (selectedRecipes.length > 0) {
+        content += '<div style="page-break-before:always"></div>';
+        content += '<h1 style="margin-top:20px">Liste d\'Achat Globale</h1>';
+        content += '<p style="color:#6c757d;font-size:13px">Pour ' + persons + ' personnes — ' + selectedRecipes.length + ' recettes sélectionnées</p>';
+
+        // Merge all items across categories into a unified grocery list
+        const grocerySections = {
+            'Protéines': [],
+            'Fruits & Légumes': [],
+            'Produits laitiers': [],
+            'Épicerie & Condiments': [],
+            'Autres': []
+        };
+
+        const protKeywords = ['poulet','bœuf','bavette','agneau','saumon','cabillaud','crevettes','thon','sardines','tofu','œuf','jambon','poisson','viande','haché'];
+        const veggieKeywords = ['épinard','brocoli','courgette','aubergine','poivron','tomate','concombre','avocat','fenouil','oignon','ail','champignon','roquette','laitue','romaine','pak-choï','mange-tout','haricot','citron','menthe','basilic','coriandre','persil','ciboulette','fraise','myrtille','banane','gingembre'];
+        const dairyKeywords = ['feta','chèvre','gruyère','parmesan','comté','ricotta','yaourt','crème','lait','fromage','beurre de'];
+        const pantryKeywords = ['huile','sauce','vinaigre','moutarde','épice','cumin','paprika','curry','curcuma','cannelle','muscade','herbe','romarin','thym','soja','sésame','nuoc','harissa','miso','nori','olive','noix','amande','graine','chia','lin','cacao','matcha','poudre','café','bouillon','lait de coco','eau de coco','pois chiche','lentille','pâte de'];
+
+        const allUniqueItems = new Set();
+        for (const items of Object.values(shopByCategory)) {
+            items.forEach(item => allUniqueItems.add(item));
+        }
+
+        allUniqueItems.forEach(item => {
+            const lower = item.toLowerCase();
+            if (protKeywords.some(k => lower.includes(k))) {
+                grocerySections['Protéines'].push(item);
+            } else if (veggieKeywords.some(k => lower.includes(k))) {
+                grocerySections['Fruits & Légumes'].push(item);
+            } else if (dairyKeywords.some(k => lower.includes(k))) {
+                grocerySections['Produits laitiers'].push(item);
+            } else if (pantryKeywords.some(k => lower.includes(k))) {
+                grocerySections['Épicerie & Condiments'].push(item);
+            } else {
+                grocerySections['Autres'].push(item);
+            }
+        });
+
+        const sectionIcons = {'Protéines':'🥩','Fruits & Légumes':'🥦','Produits laitiers':'🧀','Épicerie & Condiments':'🫒','Autres':'🛒'};
+
+        for (const [section, items] of Object.entries(grocerySections)) {
+            if (items.length === 0) continue;
+            content += '<h2 style="margin-top:16px;font-size:14px;color:#2d6a4f">' + sectionIcons[section] + ' ' + section + '</h2>';
+            content += '<ul style="font-size:12px;margin:4px 0 0 20px">';
+            items.sort().forEach(item => {
+                content += '<li style="margin-bottom:2px">' + item + '</li>';
+            });
+            content += '</ul>';
+        }
+    }
+
     content += '<div class="footer">Coach Sain — Diététique & Sport</div>';
     content += '</body></html>';
 

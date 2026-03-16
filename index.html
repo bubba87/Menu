@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manger Sain &amp; Varié — Menus Semaine Low-Carb</title>
+    <style>
+        :root {
+            --green: #2d6a4f;
+            --green-light: #52b788;
+            --green-bg: #d8f3dc;
+            --orange: #e76f51;
+            --cream: #fefae0;
+            --dark: #1b1b1b;
+            --gray: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f0f4f0;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(135deg, var(--green), var(--green-light));
+            color: white;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        header h1 { font-size: 1.4rem; font-weight: 700; }
+        header p { font-size: 0.85rem; opacity: 0.9; margin-top: 0.25rem; }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            background: var(--white);
+            display: flex;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-bottom: 2px solid var(--green-bg);
+            position: sticky;
+            top: 72px;
+            z-index: 99;
+            box-shadow: var(--shadow);
+        }
+        nav button {
+            flex: 0 0 auto;
+            padding: 0.75rem 1.1rem;
+            border: none;
+            background: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        nav button.active {
+            color: var(--green);
+            border-bottom-color: var(--green);
+            background: var(--green-bg);
+        }
+        nav button:hover { color: var(--green); }
+
+        /* ===== SECTIONS ===== */
+        .section { display: none; padding: 1rem; max-width: 900px; margin: 0 auto; }
+        .section.active { display: block; }
+
+        /* ===== DAY TABS ===== */
+        .day-tabs {
+            display: flex;
+            gap: 0.4rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+            margin-bottom: 1rem;
+        }
+        .day-tab {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 2px solid var(--green-light);
+            background: var(--white);
+            color: var(--green);
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .day-tab.active {
+            background: var(--green);
+            color: var(--white);
+            border-color: var(--green);
+        }
+
+        /* ===== MEAL CARDS ===== */
+        .day-content { display: none; }
+        .day-content.active { display: block; }
+
+        .meal-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--green-light);
+        }
+        .meal-card.midi { border-left-color: var(--orange); }
+        .meal-card.soir { border-left-color: #457b9d; }
+
+        .meal-time {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+        .meal-time.matin { color: var(--green-light); }
+        .meal-time.midi { color: var(--orange); }
+        .meal-time.soir { color: #457b9d; }
+
+        .meal-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        .meal-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 0.75rem;
+        }
+        .meal-macros {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.75rem;
+        }
+        .macro {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .macro.prot { background: #dbeafe; color: #1e40af; }
+        .macro.lip { background: #fef3c7; color: #92400e; }
+        .macro.glu { background: #fce7f3; color: #9d174d; }
+        .macro.cal { background: #e0e7ff; color: #3730a3; }
+
+        .recipe-toggle {
+            background: var(--green-bg);
+            color: var(--green);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .recipe-toggle:hover { background: var(--green-light); color: white; }
+
+        .recipe-detail {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8faf8;
+            border-radius: 8px;
+            border: 1px solid var(--green-bg);
+        }
+        .recipe-detail.open { display: block; }
+        .recipe-detail h4 {
+            font-size: 0.9rem;
+            color: var(--green);
+            margin-bottom: 0.5rem;
+        }
+        .recipe-detail ul {
+            margin: 0.5rem 0 1rem 1.2rem;
+            font-size: 0.88rem;
+        }
+        .recipe-detail ol {
+            margin: 0.5rem 0 0 1.2rem;
+            font-size: 0.88rem;
+        }
+        .recipe-detail li { margin-bottom: 0.3rem; }
+        .recipe-detail .tip {
+            background: var(--cream);
+            padding: 0.6rem;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            margin-top: 0.75rem;
+            border-left: 3px solid var(--orange);
+        }
+
+        /* ===== GUIDE SECTION ===== */
+        .guide-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+        }
+        .guide-card h3 {
+            color: var(--green);
+            font-size: 1.05rem;
+            margin-bottom: 0.6rem;
+        }
+        .guide-card p, .guide-card li {
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        .guide-card ul { margin: 0.5rem 0 0 1.2rem; }
+        .guide-card li { margin-bottom: 0.3rem; }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .food-item {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            border-top: 3px solid var(--green-light);
+        }
+        .food-item h4 {
+            color: var(--green);
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+        }
+        .food-item p { font-size: 0.85rem; color: var(--gray); }
+        .food-item .when {
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            background: var(--cream);
+            border-radius: 10px;
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        /* ===== SMOOTHIES ===== */
+        .smoothie-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid #a855f7;
+        }
+        .smoothie-card h3 {
+            color: #7c3aed;
+            font-size: 1.05rem;
+            margin-bottom: 0.3rem;
+        }
+        .smoothie-card .time {
+            font-size: 0.78rem;
+            color: var(--gray);
+            margin-bottom: 0.6rem;
+        }
+        .smoothie-card ul {
+            margin: 0.5rem 0 0.5rem 1.2rem;
+            font-size: 0.88rem;
+        }
+        .smoothie-card li { margin-bottom: 0.2rem; }
+        .smoothie-card .steps {
+            font-size: 0.88rem;
+            color: var(--gray);
+            font-style: italic;
+        }
+        .smoothie-card .benefit {
+            margin-top: 0.5rem;
+            font-size: 0.82rem;
+            padding: 0.4rem 0.7rem;
+            background: #f3e8ff;
+            border-radius: 8px;
+            color: #6b21a8;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.15rem; }
+            nav button { padding: 0.65rem 0.85rem; font-size: 0.78rem; }
+            .meal-card { padding: 1rem; }
+            .food-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Manger Sain &amp; Varié</h1>
+    <p>Menus low-carb pour la semaine — Cuisines du monde</p>
+</header>
+
+<nav id="mainNav">
+    <button class="active" onclick="showSection('menus')">Menus Semaine</button>
+    <button onclick="showSection('guide')">Guide Aliments</button>
+    <button onclick="showSection('smoothies')">Smoothies</button>
+    <button onclick="showSection('principes')">Principes</button>
+</nav>
+
+<!-- ===================== MENUS SEMAINE ===================== -->
+<div id="menus" class="section active">
+    <div class="day-tabs" id="dayTabs">
+        <button class="day-tab active" onclick="showDay('lun')">Lundi</button>
+        <button class="day-tab" onclick="showDay('mar')">Mardi</button>
+        <button class="day-tab" onclick="showDay('mer')">Mercredi</button>
+        <button class="day-tab" onclick="showDay('jeu')">Jeudi</button>
+        <button class="day-tab" onclick="showDay('ven')">Vendredi</button>
+        <button class="day-tab" onclick="showDay('sam')">Samedi</button>
+        <button class="day-tab" onclick="showDay('dim')">Dimanche</button>
+    </div>
+
+    <!-- === LUNDI === -->
+    <div id="lun" class="day-content active">
+        <div class="meal-card">
+            <div class="meal-time matin">Petit-déjeuner</div>
+            <div class="meal-title">Omelette aux épinards &amp; feta</div>
+            <div class="meal-desc">Protéinée et rassasiante, avec des bonnes graisses pour bien démarrer.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 28g</span>
+                <span class="macro lip">Lip: 22g</span>
+                <span class="macro glu">Glu: 4g</span>
+                <span class="macro cal">~320 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>3 œufs</li>
+                    <li>2 poignées d'épinards frais</li>
+                    <li>30g de feta émiettée</li>
+                    <li>1 c. à soupe d'huile d'olive</li>
+                    <li>Sel, poivre, piment d'Espelette</li>
+                </ul>
+                <h4>Préparation (10 min)</h4>
+                <ol>
+                    <li>Faire revenir les épinards 2 min à feu moyen dans l'huile d'olive.</li>
+                    <li>Battre les œufs, assaisonner, verser sur les épinards.</li>
+                    <li>Cuire 3-4 min à feu doux, émietter la feta dessus.</li>
+                    <li>Plier et servir.</li>
+                </ol>
+                <div class="tip">Astuce : ajouter quelques graines de tournesol pour le croquant et les minéraux.</div>
+            </div>
+        </div>
+
+        <div class="meal-card midi">
+            <div class="meal-time midi">Déjeuner</div>
+            <div class="meal-title">Poulet teriyaki maison &amp; brocoli sauté</div>
+            <div class="meal-desc">Cuisine japonaise revisitée low-carb. Sauce teriyaki sans sucre ajouté.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 42g</span>
+                <span class="macro lip">Lip: 14g</span>
+                <span class="macro glu">Glu: 8g</span>
+                <span class="macro cal">~380 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>200g de blancs de poulet émincés</li>
+                    <li>300g de brocoli en fleurettes</li>
+                    <li>2 c. à soupe de sauce soja (faible en sel)</li>
+                    <li>1 c. à café de vinaigre de riz</li>
+                    <li>1 gousse d'ail émincée</li>
+                    <li>1 c. à café de gingembre frais râpé</li>
+                    <li>1 c. à soupe d'huile de sésame</li>
+                    <li>Graines de sésame</li>
+                </ul>
+                <h4>Préparation (25 min)</h4>
+                <ol>
+                    <li>Mélanger sauce soja, vinaigre, ail et gingembre.</li>
+                    <li>Saisir le poulet à feu vif dans l'huile de sésame 5-6 min.</li>
+                    <li>Ajouter la sauce, laisser caraméliser 2 min.</li>
+                    <li>Faire sauter le brocoli à part 5 min (al dente).</li>
+                    <li>Servir ensemble, parsemer de graines de sésame.</li>
+                </ol>
+                <div class="tip">Astuce : accompagner de chou-fleur « riz » pour une alternative au riz blanc.</div>
+            </div>
+        </div>
+
+        <div class="meal-card soir">
+            <div class="meal-time soir">Dîner</div>
+            <div class="meal-title">Soupe thaï au lait de coco &amp; crevettes</div>
+            <div class="meal-desc">Légère, parfumée et réconfortante. Riche en protéines, pauvre en glucides.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 30g</span>
+                <span class="macro lip">Lip: 18g</span>
+                <span class="macro glu">Glu: 7g</span>
+                <span class="macro cal">~310 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>200g de crevettes décortiquées</li>
+                    <li>200ml de lait de coco</li>
+                    <li>300ml de bouillon de poulet</li>
+                    <li>100g de champignons émincés</li>
+                    <li>1 tige de citronnelle écrasée</li>
+                    <li>2 feuilles de combava (ou zeste de citron vert)</li>
+                    <li>1 c. à soupe de sauce poisson (nuoc-mâm)</li>
+                    <li>Jus d'1/2 citron vert</li>
+                    <li>Coriandre fraîche, piment (optionnel)</li>
+                </ul>
+                <h4>Préparation (20 min)</h4>
+                <ol>
+                    <li>Porter le bouillon à ébullition avec citronnelle et combava.</li>
+                    <li>Ajouter le lait de coco et les champignons, cuire 5 min.</li>
+                    <li>Ajouter les crevettes, cuire 3-4 min.</li>
+                    <li>Retirer la citronnelle, ajouter nuoc-mâm et citron vert.</li>
+                    <li>Servir avec coriandre fraîche.</li>
+                </ol>
+                <div class="tip">Astuce : ajouter des courgettes en nouilles (spiralizer) pour plus de volume sans glucides.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- === MARDI === -->
+    <div id="mar" class="day-content">
+        <div class="meal-card">
+            <div class="meal-time matin">Petit-déjeuner</div>
+            <div class="meal-title">Yaourt grec, noix &amp; graines de chia</div>
+            <div class="meal-desc">Bowl protéiné sans sucre ajouté, crémeux et nourrissant.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 22g</span>
+                <span class="macro lip">Lip: 18g</span>
+                <span class="macro glu">Glu: 8g</span>
+                <span class="macro cal">~290 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>200g de yaourt grec nature (10% MG)</li>
+                    <li>20g de noix concassées</li>
+                    <li>1 c. à soupe de graines de chia</li>
+                    <li>Quelques myrtilles (30g)</li>
+                    <li>1 c. à café d'extrait de vanille</li>
+                </ul>
+                <h4>Préparation (5 min)</h4>
+                <ol>
+                    <li>Verser le yaourt dans un bol.</li>
+                    <li>Ajouter vanille, mélanger.</li>
+                    <li>Parsemer de noix, chia et myrtilles.</li>
+                </ol>
+                <div class="tip">Astuce : préparer le chia la veille dans le yaourt pour un pudding plus épais.</div>
+            </div>
+        </div>
+
+        <div class="meal-card midi">
+            <div class="meal-time midi">Déjeuner</div>
+            <div class="meal-title">Salade niçoise revisitée</div>
+            <div class="meal-desc">Un classique méditerranéen riche en oméga-3 et en légumes croquants.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 35g</span>
+                <span class="macro lip">Lip: 24g</span>
+                <span class="macro glu">Glu: 6g</span>
+                <span class="macro cal">~390 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>1 boîte de thon au naturel (150g égoutté)</li>
+                    <li>2 œufs durs</li>
+                    <li>100g de haricots verts cuits</li>
+                    <li>10 olives noires</li>
+                    <li>6 tomates cerises</li>
+                    <li>1/4 de concombre</li>
+                    <li>Vinaigrette : 2 c. à soupe huile d'olive, 1 c. à soupe vinaigre de vin, moutarde</li>
+                </ul>
+                <h4>Préparation (15 min)</h4>
+                <ol>
+                    <li>Disposer les légumes dans une grande assiette.</li>
+                    <li>Émietter le thon et couper les œufs en quartiers.</li>
+                    <li>Ajouter les olives.</li>
+                    <li>Préparer la vinaigrette, assaisonner.</li>
+                </ol>
+                <div class="tip">Astuce : remplacer le thon en boîte par du thon frais grillé le week-end.</div>
+            </div>
+        </div>
+
+        <div class="meal-card soir">
+            <div class="meal-time soir">Dîner</div>
+            <div class="meal-title">Saumon grillé &amp; légumes rôtis au four</div>
+            <div class="meal-desc">Oméga-3, protéines complètes et légumes fondants.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 38g</span>
+                <span class="macro lip">Lip: 22g</span>
+                <span class="macro glu">Glu: 9g</span>
+                <span class="macro cal">~400 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>1 pavé de saumon (180g)</li>
+                    <li>1 courgette en rondelles</li>
+                    <li>1 poivron rouge en lamelles</li>
+                    <li>100g de tomates cerises</li>
+                    <li>2 c. à soupe d'huile d'olive</li>
+                    <li>Herbes de Provence, ail, sel, poivre</li>
+                </ul>
+                <h4>Préparation (30 min)</h4>
+                <ol>
+                    <li>Préchauffer le four à 200°C.</li>
+                    <li>Disposer les légumes sur une plaque, huile d'olive, herbes, enfourner 15 min.</li>
+                    <li>Ajouter le saumon assaisonné sur les légumes, cuire 12-15 min.</li>
+                    <li>Servir avec un filet de citron.</li>
+                </ol>
+                <div class="tip">Astuce : le saumon est meilleur rosé à cœur, ne pas trop cuire.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- === MERCREDI === -->
+    <div id="mer" class="day-content">
+        <div class="meal-card">
+            <div class="meal-time matin">Petit-déjeuner</div>
+            <div class="meal-title">Œufs brouillés crémeux &amp; avocat</div>
+            <div class="meal-desc">Combo parfait de protéines et bonnes graisses pour la satiété longue durée.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 24g</span>
+                <span class="macro lip">Lip: 30g</span>
+                <span class="macro glu">Glu: 4g</span>
+                <span class="macro cal">~380 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>3 œufs</li>
+                    <li>1/2 avocat mûr</li>
+                    <li>1 c. à soupe de crème fraîche épaisse</li>
+                    <li>Ciboulette ciselée</li>
+                    <li>Sel, poivre</li>
+                </ul>
+                <h4>Préparation (8 min)</h4>
+                <ol>
+                    <li>Battre les œufs avec la crème, sel et poivre.</li>
+                    <li>Cuire à feu très doux en remuant constamment avec une spatule.</li>
+                    <li>Retirer du feu encore baveux (la chaleur résiduelle finit la cuisson).</li>
+                    <li>Servir avec l'avocat tranché et la ciboulette.</li>
+                </ol>
+                <div class="tip">Astuce : cuisson douce = œufs crémeux. Ne jamais monter le feu !</div>
+            </div>
+        </div>
+
+        <div class="meal-card midi">
+            <div class="meal-time midi">Déjeuner</div>
+            <div class="meal-title">Wok de bœuf aux légumes croquants</div>
+            <div class="meal-desc">Inspiration chinoise rapide, riche en fer et en fibres.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 40g</span>
+                <span class="macro lip">Lip: 16g</span>
+                <span class="macro glu">Glu: 10g</span>
+                <span class="macro cal">~370 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>200g de bœuf (bavette ou onglet) en fines lanières</li>
+                    <li>1 poivron rouge, 1 poivron jaune en lanières</li>
+                    <li>100g de pois mange-tout</li>
+                    <li>100g de chou pak-choï</li>
+                    <li>2 c. à soupe de sauce soja</li>
+                    <li>1 c. à soupe d'huile de sésame</li>
+                    <li>1 gousse d'ail, gingembre frais</li>
+                </ul>
+                <h4>Préparation (20 min)</h4>
+                <ol>
+                    <li>Saisir le bœuf à feu très vif dans l'huile de sésame 2 min. Réserver.</li>
+                    <li>Dans le même wok, sauter les légumes 4-5 min (garder croquant).</li>
+                    <li>Remettre le bœuf, ajouter ail, gingembre, sauce soja.</li>
+                    <li>Mélanger 1 min et servir immédiatement.</li>
+                </ol>
+                <div class="tip">Astuce : couper la viande très fin et contre le grain pour qu'elle reste tendre.</div>
+            </div>
+        </div>
+
+        <div class="meal-card soir">
+            <div class="meal-time soir">Dîner</div>
+            <div class="meal-title">Gratin de courgettes au chèvre &amp; thym</div>
+            <div class="meal-desc">Plat réconfortant et gourmand, les courgettes remplacent les pâtes.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 26g</span>
+                <span class="macro lip">Lip: 20g</span>
+                <span class="macro glu">Glu: 8g</span>
+                <span class="macro cal">~330 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>3 courgettes moyennes en rondelles fines</li>
+                    <li>100g de chèvre frais</li>
+                    <li>2 œufs</li>
+                    <li>100ml de crème fraîche</li>
+                    <li>Thym frais, ail, sel, poivre</li>
+                    <li>30g de parmesan râpé</li>
+                </ul>
+                <h4>Préparation (35 min)</h4>
+                <ol>
+                    <li>Préchauffer le four à 190°C.</li>
+                    <li>Disposer les rondelles de courgettes dans un plat à gratin.</li>
+                    <li>Mélanger œufs, crème, chèvre émietté, ail, thym.</li>
+                    <li>Verser sur les courgettes, parsemer de parmesan.</li>
+                    <li>Enfourner 25 min jusqu'à doré.</li>
+                </ol>
+                <div class="tip">Astuce : éponger les courgettes avec du papier absorbant pour éviter l'excès d'eau.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- === JEUDI === -->
+    <div id="jeu" class="day-content">
+        <div class="meal-card">
+            <div class="meal-time matin">Petit-déjeuner</div>
+            <div class="meal-title">Pancakes protéinés à la banane (low-carb)</div>
+            <div class="meal-desc">Seulement 3 ingrédients, sans farine. Moelleux et rassasiants.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 20g</span>
+                <span class="macro lip">Lip: 14g</span>
+                <span class="macro glu">Glu: 12g</span>
+                <span class="macro cal">~260 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>2 œufs</li>
+                    <li>1/2 banane mûre (petite)</li>
+                    <li>2 c. à soupe de poudre d'amande</li>
+                    <li>1 pincée de cannelle</li>
+                    <li>Beurre pour la cuisson</li>
+                </ul>
+                <h4>Préparation (10 min)</h4>
+                <ol>
+                    <li>Écraser la banane, mélanger avec les œufs battus et la poudre d'amande.</li>
+                    <li>Ajouter la cannelle.</li>
+                    <li>Cuire des petits pancakes dans une poêle beurrée, 2 min par face.</li>
+                </ol>
+                <div class="tip">Astuce : servir avec un peu de beurre de cacahuète pour plus de protéines.</div>
+            </div>
+        </div>
+
+        <div class="meal-card midi">
+            <div class="meal-time midi">Déjeuner</div>
+            <div class="meal-title">Curry vert de poulet aux aubergines</div>
+            <div class="meal-desc">Saveurs thaïlandaises intenses, lait de coco et basilic thaï.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 38g</span>
+                <span class="macro lip">Lip: 20g</span>
+                <span class="macro glu">Glu: 9g</span>
+                <span class="macro cal">~380 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>200g de poulet en morceaux</li>
+                    <li>1 aubergine en cubes</li>
+                    <li>200ml de lait de coco</li>
+                    <li>2 c. à soupe de pâte de curry vert</li>
+                    <li>Basilic thaï (ou classique)</li>
+                    <li>1 c. à soupe de sauce poisson</li>
+                    <li>Quelques haricots verts</li>
+                </ul>
+                <h4>Préparation (30 min)</h4>
+                <ol>
+                    <li>Faire revenir la pâte de curry dans un peu d'huile 1 min.</li>
+                    <li>Ajouter le poulet, saisir 3 min.</li>
+                    <li>Verser le lait de coco, ajouter aubergine et haricots verts.</li>
+                    <li>Mijoter 15-20 min à feu doux.</li>
+                    <li>Ajouter sauce poisson et basilic, servir.</li>
+                </ol>
+                <div class="tip">Astuce : servir sur du chou-fleur en riz pour rester low-carb.</div>
+            </div>
+        </div>
+
+        <div class="meal-card soir">
+            <div class="meal-time soir">Dîner</div>
+            <div class="meal-title">Salade tiède de lentilles, chèvre chaud &amp; noix</div>
+            <div class="meal-desc">Protéines végétales et minéraux. Les lentilles sont les légumineuses les plus pauvres en glucides.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 24g</span>
+                <span class="macro lip">Lip: 18g</span>
+                <span class="macro glu">Glu: 15g</span>
+                <span class="macro cal">~340 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>100g de lentilles vertes cuites</li>
+                    <li>2 crottins de chèvre coupés en deux</li>
+                    <li>30g de noix</li>
+                    <li>Roquette</li>
+                    <li>1 échalote émincée</li>
+                    <li>Vinaigrette : huile de noix, vinaigre balsamique, moutarde</li>
+                </ul>
+                <h4>Préparation (20 min)</h4>
+                <ol>
+                    <li>Tiédir les lentilles dans une casserole avec l'échalote.</li>
+                    <li>Passer les chèvres au grill 3-4 min.</li>
+                    <li>Dresser : roquette, lentilles, chèvre chaud, noix.</li>
+                    <li>Assaisonner avec la vinaigrette à l'huile de noix.</li>
+                </ol>
+                <div class="tip">Astuce : les lentilles vertes du Puy gardent mieux leur tenue à la cuisson.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- === VENDREDI === -->
+    <div id="ven" class="day-content">
+        <div class="meal-card">
+            <div class="meal-time matin">Petit-déjeuner</div>
+            <div class="meal-title">Shakshuka (œufs pochés en sauce tomate)</div>
+            <div class="meal-desc">Plat complet du Maghreb, épicé et riche en lycopène.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 22g</span>
+                <span class="macro lip">Lip: 20g</span>
+                <span class="macro glu">Glu: 10g</span>
+                <span class="macro cal">~310 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>3 œufs</li>
+                    <li>400g de tomates concassées (boîte)</li>
+                    <li>1 poivron rouge en dés</li>
+                    <li>1 oignon émincé</li>
+                    <li>2 gousses d'ail</li>
+                    <li>1 c. à café de cumin, paprika fumé</li>
+                    <li>Huile d'olive, persil frais</li>
+                </ul>
+                <h4>Préparation (20 min)</h4>
+                <ol>
+                    <li>Faire revenir oignon, ail et poivron dans l'huile d'olive 5 min.</li>
+                    <li>Ajouter tomates, cumin, paprika. Laisser réduire 8 min.</li>
+                    <li>Creuser 3 puits, casser les œufs dedans.</li>
+                    <li>Couvrir, cuire 5 min jusqu'à ce que les blancs soient pris.</li>
+                    <li>Parsemer de persil et servir dans la poêle.</li>
+                </ol>
+                <div class="tip">Astuce : ajouter de la feta émiettée pour encore plus de protéines.</div>
+            </div>
+        </div>
+
+        <div class="meal-card midi">
+            <div class="meal-time midi">Déjeuner</div>
+            <div class="meal-title">Dos de cabillaud, sauce vierge &amp; fenouil rôti</div>
+            <div class="meal-desc">Poisson blanc ultra-maigre avec des saveurs provençales.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 40g</span>
+                <span class="macro lip">Lip: 14g</span>
+                <span class="macro glu">Glu: 6g</span>
+                <span class="macro cal">~320 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>200g de dos de cabillaud</li>
+                    <li>1 bulbe de fenouil émincé</li>
+                    <li>Sauce vierge : 2 tomates, basilic, huile d'olive, citron</li>
+                    <li>Sel, poivre, herbes de Provence</li>
+                </ul>
+                <h4>Préparation (30 min)</h4>
+                <ol>
+                    <li>Rôtir le fenouil au four 15 min à 200°C avec huile d'olive.</li>
+                    <li>Ajouter le cabillaud assaisonné, cuire 12 min.</li>
+                    <li>Préparer la sauce vierge : tomates concassées, basilic ciselé, huile d'olive, jus de citron.</li>
+                    <li>Servir le poisson sur le fenouil, napper de sauce vierge.</li>
+                </ol>
+                <div class="tip">Astuce : le fenouil rôti devient doux et caramélisé, parfait avec le poisson.</div>
+            </div>
+        </div>
+
+        <div class="meal-card soir">
+            <div class="meal-time soir">Dîner</div>
+            <div class="meal-title">Soupe miso, tofu &amp; légumes verts</div>
+            <div class="meal-desc">Repas léger japonais, riche en probiotiques et protéines végétales.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 20g</span>
+                <span class="macro lip">Lip: 10g</span>
+                <span class="macro glu">Glu: 8g</span>
+                <span class="macro cal">~210 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>2 c. à soupe de pâte de miso</li>
+                    <li>150g de tofu ferme en cubes</li>
+                    <li>500ml d'eau chaude</li>
+                    <li>1 feuille d'algue nori coupée</li>
+                    <li>2 oignons verts émincés</li>
+                    <li>100g d'épinards</li>
+                    <li>1 c. à café d'huile de sésame</li>
+                </ul>
+                <h4>Préparation (15 min)</h4>
+                <ol>
+                    <li>Dissoudre le miso dans l'eau chaude (pas bouillante).</li>
+                    <li>Ajouter le tofu et les épinards, chauffer 3 min.</li>
+                    <li>Ajouter nori et oignons verts.</li>
+                    <li>Finir avec un filet d'huile de sésame.</li>
+                </ol>
+                <div class="tip">Astuce : ne jamais faire bouillir le miso, ça tue les probiotiques.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- === SAMEDI === -->
+    <div id="sam" class="day-content">
+        <div class="meal-card">
+            <div class="meal-time matin">Petit-déjeuner</div>
+            <div class="meal-title">Assiette brunch : jambon, fromage, tomates &amp; noix</div>
+            <div class="meal-desc">Un brunch copieux du week-end, sans pain, 100% plaisir.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 30g</span>
+                <span class="macro lip">Lip: 28g</span>
+                <span class="macro glu">Glu: 5g</span>
+                <span class="macro cal">~400 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>3 tranches de jambon cru (Parme ou Serrano)</li>
+                    <li>50g de comté ou gruyère</li>
+                    <li>2 tomates en tranches</li>
+                    <li>30g de noix de macadamia</li>
+                    <li>Quelques feuilles de roquette</li>
+                    <li>Filet d'huile d'olive, poivre</li>
+                </ul>
+                <h4>Préparation (5 min)</h4>
+                <ol>
+                    <li>Dresser tous les ingrédients sur une grande assiette.</li>
+                    <li>Filet d'huile d'olive sur les tomates et la roquette.</li>
+                    <li>Poivrer et déguster lentement !</li>
+                </ol>
+                <div class="tip">Astuce : prendre le temps de bien mastiquer pour favoriser la satiété.</div>
+            </div>
+        </div>
+
+        <div class="meal-card midi">
+            <div class="meal-time midi">Déjeuner</div>
+            <div class="meal-title">Tagine de poulet aux olives &amp; citron confit</div>
+            <div class="meal-desc">Cuisine marocaine parfumée, mijoté tendre et savoureux.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 42g</span>
+                <span class="macro lip">Lip: 18g</span>
+                <span class="macro glu">Glu: 8g</span>
+                <span class="macro cal">~370 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>2 cuisses de poulet</li>
+                    <li>1 oignon émincé</li>
+                    <li>100g d'olives vertes dénoyautées</li>
+                    <li>1 citron confit (écorce coupée en lamelles)</li>
+                    <li>1 c. à café de curcuma, gingembre, cannelle</li>
+                    <li>Coriandre fraîche</li>
+                    <li>200ml de bouillon de poulet</li>
+                    <li>1 c. à soupe d'huile d'olive</li>
+                </ul>
+                <h4>Préparation (40 min)</h4>
+                <ol>
+                    <li>Dorer le poulet dans l'huile d'olive, réserver.</li>
+                    <li>Faire revenir l'oignon avec les épices 3 min.</li>
+                    <li>Remettre le poulet, ajouter bouillon, olives et citron confit.</li>
+                    <li>Couvrir, mijoter 30 min à feu doux.</li>
+                    <li>Parsemer de coriandre fraîche.</li>
+                </ol>
+                <div class="tip">Astuce : accompagner de chou-fleur rôti aux épices plutôt que de semoule.</div>
+            </div>
+        </div>
+
+        <div class="meal-card soir">
+            <div class="meal-time soir">Dîner</div>
+            <div class="meal-title">Tartare de saumon, avocat &amp; concombre</div>
+            <div class="meal-desc">Frais, élégant et ultra-nutritif. Idéal pour un soir d'été.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 32g</span>
+                <span class="macro lip">Lip: 26g</span>
+                <span class="macro glu">Glu: 5g</span>
+                <span class="macro cal">~390 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>200g de saumon frais (qualité sushi)</li>
+                    <li>1 avocat mûr</li>
+                    <li>1/2 concombre</li>
+                    <li>1 c. à soupe de sauce soja</li>
+                    <li>1 c. à café d'huile de sésame</li>
+                    <li>Jus d'1 citron vert</li>
+                    <li>Ciboulette, graines de sésame</li>
+                </ul>
+                <h4>Préparation (15 min)</h4>
+                <ol>
+                    <li>Couper le saumon en petits dés.</li>
+                    <li>Couper l'avocat et le concombre en dés similaires.</li>
+                    <li>Mélanger sauce soja, huile de sésame, citron vert.</li>
+                    <li>Dresser en couches dans un cercle : concombre, avocat, saumon.</li>
+                    <li>Assaisonner, parsemer de ciboulette et sésame.</li>
+                </ol>
+                <div class="tip">Astuce : bien réfrigérer le saumon avant de le couper, c'est plus facile.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- === DIMANCHE === -->
+    <div id="dim" class="day-content">
+        <div class="meal-card">
+            <div class="meal-time matin">Petit-déjeuner</div>
+            <div class="meal-title">Frittata aux champignons &amp; gruyère</div>
+            <div class="meal-desc">Une omelette épaisse italienne, parfaite pour un dimanche tranquille.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 28g</span>
+                <span class="macro lip">Lip: 24g</span>
+                <span class="macro glu">Glu: 4g</span>
+                <span class="macro cal">~350 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>4 œufs</li>
+                    <li>150g de champignons de Paris émincés</li>
+                    <li>50g de gruyère râpé</li>
+                    <li>1 c. à soupe d'huile d'olive</li>
+                    <li>Persil, sel, poivre, muscade</li>
+                </ul>
+                <h4>Préparation (20 min)</h4>
+                <ol>
+                    <li>Faire sauter les champignons à feu vif 5 min dans l'huile.</li>
+                    <li>Battre les œufs avec gruyère, persil, muscade.</li>
+                    <li>Verser sur les champignons, cuire à feu doux 8 min.</li>
+                    <li>Finir sous le grill du four 3-4 min pour dorer.</li>
+                </ol>
+                <div class="tip">Astuce : utiliser une poêle allant au four pour une cuisson parfaite.</div>
+            </div>
+        </div>
+
+        <div class="meal-card midi">
+            <div class="meal-time midi">Déjeuner</div>
+            <div class="meal-title">Côtes d'agneau grillées &amp; ratatouille</div>
+            <div class="meal-desc">Repas dominical méditerranéen, généreux en saveurs et en protéines.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 38g</span>
+                <span class="macro lip">Lip: 22g</span>
+                <span class="macro glu">Glu: 10g</span>
+                <span class="macro cal">~400 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>3 côtes d'agneau</li>
+                    <li>1 courgette, 1 aubergine, 1 poivron, 2 tomates</li>
+                    <li>1 oignon, 2 gousses d'ail</li>
+                    <li>Herbes de Provence, romarin</li>
+                    <li>Huile d'olive</li>
+                </ul>
+                <h4>Préparation (40 min)</h4>
+                <ol>
+                    <li>Couper tous les légumes en cubes. Faire revenir l'oignon et l'ail.</li>
+                    <li>Ajouter aubergine, poivron, courgette. Cuire 10 min.</li>
+                    <li>Ajouter tomates et herbes, mijoter 20 min à couvert.</li>
+                    <li>Griller les côtes d'agneau à la poêle 3 min par face (rosé).</li>
+                    <li>Servir ensemble avec un filet d'huile d'olive.</li>
+                </ol>
+                <div class="tip">Astuce : sortir l'agneau 30 min avant cuisson pour une viande plus tendre.</div>
+            </div>
+        </div>
+
+        <div class="meal-card soir">
+            <div class="meal-time soir">Dîner</div>
+            <div class="meal-title">Velouté de brocoli &amp; œuf mollet</div>
+            <div class="meal-desc">Soupe légère et crémeuse pour bien terminer la semaine.</div>
+            <div class="meal-macros">
+                <span class="macro prot">Prot: 20g</span>
+                <span class="macro lip">Lip: 16g</span>
+                <span class="macro glu">Glu: 8g</span>
+                <span class="macro cal">~260 kcal</span>
+            </div>
+            <button class="recipe-toggle" onclick="toggleRecipe(this)">Voir la recette</button>
+            <div class="recipe-detail">
+                <h4>Ingrédients</h4>
+                <ul>
+                    <li>400g de brocoli en fleurettes</li>
+                    <li>1 oignon</li>
+                    <li>1 gousse d'ail</li>
+                    <li>400ml de bouillon de légumes</li>
+                    <li>2 c. à soupe de crème fraîche</li>
+                    <li>2 œufs (pour œufs mollets)</li>
+                    <li>Muscade, sel, poivre</li>
+                </ul>
+                <h4>Préparation (25 min)</h4>
+                <ol>
+                    <li>Faire revenir oignon et ail, ajouter brocoli et bouillon.</li>
+                    <li>Cuire 15 min, mixer avec la crème. Assaisonner.</li>
+                    <li>Cuire les œufs 6 min dans l'eau bouillante (mollet).</li>
+                    <li>Servir le velouté avec l'œuf mollet coupé en deux dessus.</li>
+                </ol>
+                <div class="tip">Astuce : plonger les œufs dans l'eau glacée juste après cuisson pour un mollet parfait.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== GUIDE ALIMENTS ===================== -->
+<div id="guide" class="section">
+    <h2 style="color:var(--green); margin-bottom:1rem; font-size:1.3rem;">Guide des Aliments &amp; Leurs Bienfaits</h2>
+
+    <div class="guide-card">
+        <h3>Pourquoi réduire les glucides ?</h3>
+        <p>Les glucides (pain, pâtes, riz, sucre) provoquent des pics d'insuline qui favorisent le stockage des graisses et les fringales. En les réduisant, le corps puise dans ses réserves de graisse pour l'énergie. Ce n'est pas un régime, c'est une façon de manger qui favorise la satiété naturelle.</p>
+    </div>
+
+    <div class="guide-card">
+        <h3>Les aliments à privilégier</h3>
+    </div>
+
+    <div class="food-grid">
+        <div class="food-item">
+            <h4>Œufs</h4>
+            <p>Protéine complète, vitamines B12, D et choline. Excellents pour le cerveau et la satiété. Pas de limite raisonnable (2-4/jour OK).</p>
+            <span class="when">Matin idéalement</span>
+        </div>
+        <div class="food-item">
+            <h4>Poissons gras (saumon, sardines, maquereau)</h4>
+            <p>Oméga-3 anti-inflammatoires, protéines de haute qualité. Réduisent les risques cardiovasculaires et améliorent l'humeur.</p>
+            <span class="when">2-3 fois/semaine</span>
+        </div>
+        <div class="food-item">
+            <h4>Avocat</h4>
+            <p>Graisses mono-insaturées, potassium (plus que la banane !), fibres. Excellent pour le cœur et la satiété prolongée.</p>
+            <span class="when">Matin ou midi</span>
+        </div>
+        <div class="food-item">
+            <h4>Légumes verts (épinards, brocoli, courgette)</h4>
+            <p>Faibles en calories, riches en fibres, vitamines et minéraux. Le brocoli est anti-cancer. Les épinards apportent du fer.</p>
+            <span class="when">À chaque repas</span>
+        </div>
+        <div class="food-item">
+            <h4>Huile d'olive extra-vierge</h4>
+            <p>Antioxydants puissants, graisses mono-insaturées. Réduit l'inflammation et protège le cœur. Base de la cuisine méditerranéenne.</p>
+            <span class="when">À chaque repas</span>
+        </div>
+        <div class="food-item">
+            <h4>Noix &amp; amandes</h4>
+            <p>Bonnes graisses, magnésium, zinc. Réduisent le cholestérol. Excellentes en collation (poignée de 30g).</p>
+            <span class="when">Collation ou petit-déj</span>
+        </div>
+        <div class="food-item">
+            <h4>Poulet &amp; dinde</h4>
+            <p>Protéines maigres, peu de graisses saturées. Polyvalents en cuisine, économiques et rassasiants.</p>
+            <span class="when">Midi principalement</span>
+        </div>
+        <div class="food-item">
+            <h4>Yaourt grec nature</h4>
+            <p>Protéines (2x plus qu'un yaourt normal), probiotiques pour la flore intestinale. Calcium pour les os.</p>
+            <span class="when">Matin ou collation</span>
+        </div>
+        <div class="food-item">
+            <h4>Graines de chia &amp; lin</h4>
+            <p>Oméga-3 végétaux, fibres solubles qui gonflent dans l'estomac et prolongent la satiété. Riches en calcium.</p>
+            <span class="when">Matin</span>
+        </div>
+        <div class="food-item">
+            <h4>Tofu &amp; tempeh</h4>
+            <p>Protéines végétales complètes, isoflavones bénéfiques. Le tempeh est fermenté donc riche en probiotiques.</p>
+            <span class="when">Soir (repas léger)</span>
+        </div>
+        <div class="food-item">
+            <h4>Champignons</h4>
+            <p>Très faibles en calories, riches en vitamines D et B, sélénium. Renforcent le système immunitaire.</p>
+            <span class="when">Toute la journée</span>
+        </div>
+        <div class="food-item">
+            <h4>Baies (myrtilles, framboises)</h4>
+            <p>Les fruits les plus pauvres en sucre. Antioxydants puissants, anti-âge. Peu d'impact sur la glycémie.</p>
+            <span class="when">Matin (petites quantités)</span>
+        </div>
+    </div>
+
+    <div class="guide-card" style="margin-top:1.5rem;">
+        <h3>Aliments à limiter fortement</h3>
+        <ul>
+            <li><strong>Pain blanc, pâtes, riz blanc</strong> — Glucides rapides, pic d'insuline, faim rapide après.</li>
+            <li><strong>Sucre &amp; boissons sucrées</strong> — Calories vides, addiction, inflammation.</li>
+            <li><strong>Pommes de terre, frites</strong> — Index glycémique très élevé.</li>
+            <li><strong>Céréales du petit-déjeuner</strong> — Souvent bourrées de sucre déguisé.</li>
+            <li><strong>Jus de fruits</strong> — Tout le sucre du fruit sans les fibres.</li>
+            <li><strong>Plats industriels</strong> — Sucres cachés, mauvaises graisses, additifs.</li>
+        </ul>
+    </div>
+
+    <div class="guide-card">
+        <h3>Alternatives malines</h3>
+        <ul>
+            <li><strong>Riz → Chou-fleur en riz</strong> — Râper et revenir à la poêle 5 min.</li>
+            <li><strong>Pâtes → Courgettes spiralées</strong> — Avec un spiralizer ou un économe.</li>
+            <li><strong>Pain → Feuilles de laitue</strong> — Pour les wraps et burgers.</li>
+            <li><strong>Purée → Purée de céleri-rave</strong> — Même texture, 3x moins de glucides.</li>
+            <li><strong>Farine → Poudre d'amande ou de coco</strong> — Pour les pâtisseries low-carb.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ===================== SMOOTHIES ===================== -->
+<div id="smoothies" class="section">
+    <h2 style="color:#7c3aed; margin-bottom:1rem; font-size:1.3rem;">Smoothies Rapides &amp; Sains</h2>
+    <p style="color:var(--gray); margin-bottom:1.5rem; font-size:0.9rem;">Tous réalisables en moins de 5 minutes. Privilégier les légumes et limiter les fruits sucrés.</p>
+
+    <div class="smoothie-card">
+        <h3>Green Power</h3>
+        <div class="time">Préparation : 3 min</div>
+        <ul>
+            <li>1 grosse poignée d'épinards</li>
+            <li>1/2 avocat</li>
+            <li>200ml de lait d'amande non sucré</li>
+            <li>1 c. à soupe de beurre de cacahuète</li>
+            <li>5 glaçons</li>
+        </ul>
+        <div class="steps">Tout mixer 30 secondes.</div>
+        <div class="benefit">Riche en magnésium, bonnes graisses et protéines. Ultra-rassasiant.</div>
+    </div>
+
+    <div class="smoothie-card">
+        <h3>Berry Protein</h3>
+        <div class="time">Préparation : 3 min</div>
+        <ul>
+            <li>100g de myrtilles (fraîches ou surgelées)</li>
+            <li>150g de yaourt grec nature</li>
+            <li>100ml d'eau</li>
+            <li>1 c. à soupe de graines de chia</li>
+            <li>1 c. à soupe de graines de lin moulues</li>
+        </ul>
+        <div class="steps">Mixer le tout. Boire immédiatement.</div>
+        <div class="benefit">Antioxydants + protéines + oméga-3. Faible en sucre grâce aux myrtilles.</div>
+    </div>
+
+    <div class="smoothie-card">
+        <h3>Coco-Matcha Énergie</h3>
+        <div class="time">Préparation : 3 min</div>
+        <ul>
+            <li>200ml de lait de coco léger</li>
+            <li>1 c. à café de matcha en poudre</li>
+            <li>1/2 avocat</li>
+            <li>1 c. à soupe de protéine de chanvre (optionnel)</li>
+            <li>Glaçons</li>
+        </ul>
+        <div class="steps">Mixer jusqu'à obtenir une texture lisse et mousseuse.</div>
+        <div class="benefit">Caféine douce du matcha + graisses saines. Énergie longue durée sans crash.</div>
+    </div>
+
+    <div class="smoothie-card">
+        <h3>Concombre-Menthe Détox</h3>
+        <div class="time">Préparation : 3 min</div>
+        <ul>
+            <li>1/2 concombre</li>
+            <li>10 feuilles de menthe fraîche</li>
+            <li>Jus d'1 citron vert</li>
+            <li>200ml d'eau de coco</li>
+            <li>1 c. à soupe de graines de chia</li>
+        </ul>
+        <div class="steps">Mixer le tout, servir très frais.</div>
+        <div class="benefit">Hydratant, digestif, quasiment 0 glucides. Parfait après le sport.</div>
+    </div>
+
+    <div class="smoothie-card">
+        <h3>Chocolat-Amande Gourmand</h3>
+        <div class="time">Préparation : 3 min</div>
+        <ul>
+            <li>200ml de lait d'amande non sucré</li>
+            <li>1 c. à soupe de cacao pur non sucré</li>
+            <li>1 c. à soupe de beurre d'amande</li>
+            <li>1 c. à soupe de graines de lin moulues</li>
+            <li>1 pincée de cannelle</li>
+        </ul>
+        <div class="steps">Mixer 30 secondes, c'est prêt.</div>
+        <div class="benefit">Goût dessert sans le sucre. Magnésium du cacao + protéines des amandes.</div>
+    </div>
+
+    <div class="smoothie-card">
+        <h3>Gingembre-Curcuma Anti-Inflammatoire</h3>
+        <div class="time">Préparation : 4 min</div>
+        <ul>
+            <li>200ml de lait de coco léger</li>
+            <li>1 cm de gingembre frais</li>
+            <li>1/2 c. à café de curcuma en poudre</li>
+            <li>1/2 avocat</li>
+            <li>Jus d'1/2 citron</li>
+            <li>1 pincée de poivre noir (active le curcuma)</li>
+        </ul>
+        <div class="steps">Mixer le tout, passer au tamis si besoin.</div>
+        <div class="benefit">Puissant anti-inflammatoire naturel. Le poivre noir multiplie par 20 l'absorption du curcuma.</div>
+    </div>
+</div>
+
+<!-- ===================== PRINCIPES ===================== -->
+<div id="principes" class="section">
+    <h2 style="color:var(--green); margin-bottom:1rem; font-size:1.3rem;">Principes Clés</h2>
+
+    <div class="guide-card">
+        <h3>Ce n'est PAS un régime</h3>
+        <p>L'objectif est de <strong>manger à sa faim</strong> avec les bons aliments. En réduisant les glucides et en augmentant les protéines et bonnes graisses, la satiété vient naturellement et les quantités se régulent d'elles-mêmes. Pas de restriction calorique forcée, pas de privation.</p>
+    </div>
+
+    <div class="guide-card">
+        <h3>Les 5 règles simples</h3>
+        <ul>
+            <li><strong>Protéine à chaque repas</strong> — Œufs, poisson, viande, tofu. C'est la base de la satiété.</li>
+            <li><strong>Légumes en abondance</strong> — Remplir la moitié de l'assiette. Fibres + vitamines + volume.</li>
+            <li><strong>Bonnes graisses sans peur</strong> — Huile d'olive, avocat, noix, poisson gras. Elles ne font PAS grossir.</li>
+            <li><strong>Limiter les glucides raffinés</strong> — Pain blanc, pâtes, riz, sucre. Les remplacer par leurs alternatives.</li>
+            <li><strong>Boire de l'eau</strong> — 1,5 à 2L/jour. Souvent la soif est confondue avec la faim.</li>
+        </ul>
+    </div>
+
+    <div class="guide-card">
+        <h3>Quand manger quoi ?</h3>
+        <ul>
+            <li><strong>Matin</strong> — Protéines + graisses. Œufs, yaourt grec, avocat. Pas de sucre pour éviter le coup de barre de 10h.</li>
+            <li><strong>Midi</strong> — Le repas le plus copieux. Protéine + légumes + bonnes graisses. Le corps est au pic métabolique.</li>
+            <li><strong>Soir</strong> — Plus léger mais toujours protéiné. Soupes, poissons, légumes. Éviter les glucides qui perturbent le sommeil.</li>
+            <li><strong>Collation</strong> — Si vraiment faim : poignée de noix, yaourt grec, ou carré de chocolat noir 85%.</li>
+        </ul>
+    </div>
+
+    <div class="guide-card">
+        <h3>Astuces pour ne pas craquer</h3>
+        <ul>
+            <li>Préparer ses repas à l'avance le dimanche (meal prep).</li>
+            <li>Toujours avoir des œufs durs et des noix sous la main.</li>
+            <li>Manger dans une assiette pleine (volume avec les légumes).</li>
+            <li>Cuisiner avec des épices et herbes : le plaisir gustatif évite la frustration.</li>
+            <li>Se permettre 1-2 repas « plaisir » par semaine sans culpabilité.</li>
+            <li>Ne pas sauter de repas : ça déclenche les fringales.</li>
+        </ul>
+    </div>
+
+    <div class="guide-card">
+        <h3>Résultats attendus</h3>
+        <p>En mangeant ainsi de façon régulière, sans se priver :</p>
+        <ul>
+            <li>Perte de poids progressive et durable (pas de yoyo).</li>
+            <li>Plus d'énergie stable tout au long de la journée.</li>
+            <li>Meilleur sommeil.</li>
+            <li>Moins de ballonnements et meilleure digestion.</li>
+            <li>Réduction des fringales en 1 à 2 semaines.</li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    <p>Manger Sain &amp; Varié — Fait avec soin pour une alimentation équilibrée et durable.</p>
+    <p style="margin-top:0.5rem;">Les informations nutritionnelles sont approximatives. Consultez un professionnel de santé pour un suivi personnalisé.</p>
+</footer>
+
+<script>
+    // Navigation principale
+    function showSection(id) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('#mainNav button').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Navigation jours
+    function showDay(id) {
+        document.querySelectorAll('.day-content').forEach(d => d.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+        event.target.classList.add('active');
+    }
+
+    // Toggle recettes
+    function toggleRecipe(btn) {
+        const detail = btn.nextElementSibling;
+        detail.classList.toggle('open');
+        btn.textContent = detail.classList.contains('open') ? 'Masquer la recette' : 'Voir la recette';
+    }
+</script>
+
+</body>
+</html>

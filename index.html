@@ -67,6 +67,8 @@ nav button:hover{color:var(--green)}
 .time-btn.active{background:var(--blue);color:var(--white);border-color:var(--blue)}
 .moment-btn{padding:.4rem .8rem;border-radius:20px;border:2px solid var(--orange);background:var(--white);color:var(--orange);font-weight:600;font-size:.75rem;cursor:pointer;white-space:nowrap;transition:all .2s}
 .moment-btn.active{background:var(--orange);color:var(--white);border-color:var(--orange)}
+.cuisine-btn{padding:.4rem .8rem;border-radius:20px;border:2px solid var(--purple);background:var(--white);color:var(--purple);font-weight:600;font-size:.75rem;cursor:pointer;white-space:nowrap;transition:all .2s}
+.cuisine-btn.active{background:var(--purple);color:var(--white);border-color:var(--purple)}
 .lib-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
 .lib-card{background:var(--white);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow);border-left:4px solid var(--green-light)}
 .lib-card[data-type="smoothie"]{border-left-color:var(--purple)}
@@ -220,6 +222,17 @@ footer{text-align:center;padding:1.5rem 1rem;color:var(--gray);font-size:.78rem}
 <button class="time-btn" onclick="applyFilters('time','20',this)">≤ 20 min</button>
 <button class="time-btn" onclick="applyFilters('time','30',this)">≤ 30 min</button>
 <button class="time-btn" onclick="applyFilters('time','40',this)">≤ 40 min</button>
+</div>
+</div>
+<div class="filter-bar">
+<label>Cuisine :</label>
+<div class="cat-filters" id="cuisineFilters">
+<button class="cuisine-btn active" onclick="applyFilters('cuisine','all',this)">Toutes</button>
+<button class="cuisine-btn" onclick="applyFilters('cuisine','européen',this)">Européen</button>
+<button class="cuisine-btn" onclick="applyFilters('cuisine','asiatique',this)">Asiatique</button>
+<button class="cuisine-btn" onclick="applyFilters('cuisine','méditerranéen',this)">Méditerranéen</button>
+<button class="cuisine-btn" onclick="applyFilters('cuisine','maghrébin',this)">Maghrébin</button>
+<button class="cuisine-btn" onclick="applyFilters('cuisine','international',this)">International</button>
 </div>
 </div>
 
@@ -807,7 +820,7 @@ const recipes = [
 let persons = 2;
 let usedRecipeIds = new Set(); // tracks recipes used across weeks
 let weekCount = 0;
-const activeFilters = { type: 'all', moment: 'all', time: 'all' };
+const activeFilters = { type: 'all', moment: 'all', time: 'all', cuisine: 'all' };
 
 // ============================================================
 // NAVIGATION
@@ -889,7 +902,7 @@ function libCardHTML(r) {
         'poisson':'background:#dbeafe;color:#1e40af','veggie':'background:#dcfce7;color:#16a34a',
         'soupe':'background:#fef9c3;color:#a16207','salade':'background:#d1fae5;color:#059669','smoothie':'background:#f3e8ff;color:var(--purple)'};
     const momentLabels = r.moment.map(m => m === 'matin' ? 'Petit-déj' : m === 'midi' ? 'Déjeuner' : 'Souper').join(', ');
-    let html = `<div class="lib-card" data-type="${r.type}" data-moment="${r.moment.join(',')}" data-time="${r.time}" data-id="${r.id}" data-name="${r.name}">`;
+    let html = `<div class="lib-card" data-type="${r.type}" data-moment="${r.moment.join(',')}" data-time="${r.time}" data-cuisine="${r.cuisine}" data-id="${r.id}" data-name="${r.name}">`;
     html += `<div class="tags">
         <span class="tag" style="${colors[r.type] || ''}">${r.type}</span>
         <span class="tag tag-time">${r.time} min</span>
@@ -951,9 +964,9 @@ function renderLibrary() {
 function applyFilters(filterType, value, btn) {
     activeFilters[filterType] = value;
     // Update button styles
-    const parentId = filterType === 'type' ? 'typeFilters' : (filterType === 'moment' ? 'momentFilters' : 'timeFilters');
-    const btnClass = filterType === 'type' ? 'cat-btn' : (filterType === 'moment' ? 'moment-btn' : 'time-btn');
-    document.querySelectorAll(`#${parentId} .${btnClass}`).forEach(b => b.classList.remove('active'));
+    const parentMap = {type:'typeFilters',moment:'momentFilters',time:'timeFilters',cuisine:'cuisineFilters'};
+    const classMap = {type:'cat-btn',moment:'moment-btn',time:'time-btn',cuisine:'cuisine-btn'};
+    document.querySelectorAll(`#${parentMap[filterType]} .${classMap[filterType]}`).forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     // Filter cards
     document.querySelectorAll('.lib-card').forEach(card => {
@@ -961,6 +974,7 @@ function applyFilters(filterType, value, btn) {
         if (activeFilters.type !== 'all' && card.dataset.type !== activeFilters.type) show = false;
         if (activeFilters.moment !== 'all' && !card.dataset.moment.includes(activeFilters.moment)) show = false;
         if (activeFilters.time !== 'all' && parseInt(card.dataset.time) > parseInt(activeFilters.time)) show = false;
+        if (activeFilters.cuisine !== 'all' && card.dataset.cuisine !== activeFilters.cuisine) show = false;
         card.style.display = show ? '' : 'none';
     });
     updateLibCount();
